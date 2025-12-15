@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "932583650916",
+    "project_id": "serinityhub",
+    "storage_bucket": "serinityhub.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:932583650916:android:7b7cc0e91a040eeb9f5171",
+        "android_client_info": {
+          "package_name": "com.example.serinityhub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdVJNY1jyLyzUQtZMJh_syNA_jIF9tqXY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
