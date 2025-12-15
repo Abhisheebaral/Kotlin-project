@@ -1,4 +1,4 @@
-package com.example.serinityhub
+package com.example.serinityhub.view
 
 import android.app.Activity
 import android.content.Intent
@@ -26,6 +26,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.serinityhub.R
 import com.example.serinityhub.repository.UserRepoImpl
 import com.example.serinityhub.viewmodel.UserViewModel
 import com.example.serinityhub.ui.theme.SerinityhubTheme

@@ -1,4 +1,5 @@
-package com.example.serinityhub
+package com.example.serinityhub.view
+
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -7,10 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun ProfileScreen() {
+fun SearchScreen() {
     Box(modifier = Modifier.fillMaxSize()) {
-        Text("Profile Screen")
+        Text("Search Screen")
     }
 }
-
-

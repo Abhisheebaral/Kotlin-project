@@ -1,4 +1,4 @@
-package com.example.serinityhub
+package com.example.serinityhub.view
 
 import com.example.serinityhub.ui.theme.Blue1
 import com.example.serinityhub.ui.theme.White1
@@ -20,6 +20,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import com.example.serinityhub.ProductActivity
+import com.example.serinityhub.R
 
 
 class DashboardActivity : ComponentActivity() {

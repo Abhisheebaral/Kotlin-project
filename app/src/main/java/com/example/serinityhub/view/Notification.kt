@@ -1,4 +1,4 @@
-package com.example.serinityhub
+package com.example.serinityhub.view
 
 
 import androidx.compose.foundation.layout.Box

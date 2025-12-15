@@ -1,4 +1,4 @@
-package com.example.serinityhub
+package com.example.serinityhub.view
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

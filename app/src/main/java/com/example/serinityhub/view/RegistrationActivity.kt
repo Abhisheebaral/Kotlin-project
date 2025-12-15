@@ -1,4 +1,4 @@
-package com.example.serinityhub
+package com.example.serinityhub.view
 
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -18,11 +18,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.serinityhub.R
 import com.example.serinityhub.repository.UserRepoImpl
 import com.example.serinityhub.ui.theme.SerinityhubTheme
 import com.example.serinityhub.ui.theme.SkyBlueBg
@@ -81,7 +83,7 @@ fun RegistrationBody(viewModel: UserViewModel) {
             Text(
                 text = "SerenityHub",
                 fontSize = 30.sp,
-                fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
+                fontWeight = FontWeight.Bold,
                 color = Color(0xFF2EC4B6),
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
@@ -91,7 +93,7 @@ fun RegistrationBody(viewModel: UserViewModel) {
             Text(
                 text = "Create Account",
                 fontSize = 30.sp,
-                fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
+                fontWeight = FontWeight.Bold,
                 color = WelcomeBackColor
             )
 
@@ -174,7 +176,7 @@ fun RegistrationBody(viewModel: UserViewModel) {
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2EC4B6))
             ) {
                 if (isLoading) CircularProgressIndicator(color = Color.White, modifier = Modifier.size(24.dp), strokeWidth = 2.dp)
-                else Text("Register", color = Color.White, fontSize = 16.sp, fontWeight = androidx.compose.ui.text.font.FontWeight.Bold)
+                else Text("Register", color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.Bold)
             }
 
             Spacer(modifier = Modifier.height(28.dp))
@@ -187,7 +189,7 @@ fun RegistrationBody(viewModel: UserViewModel) {
                 Text(
                     "Sign In",
                     color = Color(0xFF2EC4B6),
-                    fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
+                    fontWeight = FontWeight.Bold,
                     modifier = Modifier.clickable {
                         context.startActivity(Intent(context, LoginActivity::class.java))
                     }
