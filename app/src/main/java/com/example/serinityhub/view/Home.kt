@@ -54,13 +54,12 @@ fun HomeScreen() {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Image below search bar
         Image(
             painter = painterResource(id = R.drawable.home),
             contentDescription = "Home Banner",
             modifier = Modifier
                 .fillMaxWidth()
-                .height(150.dp)  // adjust height as needed
+                .height(150.dp)
                 .clip(RoundedCornerShape(16.dp)),
             contentScale = ContentScale.Crop
         )
@@ -93,6 +92,32 @@ fun HomeScreen() {
             CategoryButton("Counseling")
             CategoryButton("Therapy")
         }
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            RedCategoryButton("Sucide hotline")
+        }
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Text(
+            text = "Top Psychiatrists",
+            fontSize = 18.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = Color.Black
+        )
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        DoctorCard(
+            name = "Dr. Aayesha Sharma",
+            specialization = "CBT, Anxiety",
+            availability = "Next Available: Today, 2:00 PM"
+        )
     }
 }
 
@@ -115,7 +140,65 @@ fun RowScope.CategoryButton(name: String) {
     }
 }
 
-// Preview
+@Composable
+fun RowScope.RedCategoryButton(name: String) {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier
+            .weight(1f)
+            .height(50.dp)
+            .background(Color.Red, RoundedCornerShape(16.dp))
+            .clickable { }
+    ) {
+        Text(
+            text = name,
+            color = Color.White,
+            fontWeight = FontWeight.Medium,
+            fontSize = 14.sp
+        )
+    }
+}
+
+@Composable
+fun DoctorCard(
+    name: String,
+    specialization: String,
+    availability: String
+) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(16.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Text(
+                text = name,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold
+            )
+
+            Spacer(modifier = Modifier.height(4.dp))
+
+            Text(
+                text = specialization,
+                fontSize = 13.sp,
+                color = Color.Gray
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = availability,
+                fontSize = 12.sp,
+                color = Color(0xFF2EC4B6),
+                fontWeight = FontWeight.Medium
+            )
+        }
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {

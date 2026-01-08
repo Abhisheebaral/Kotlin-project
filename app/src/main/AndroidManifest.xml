@@ -46,13 +46,6 @@
             android:label="Dashboard"
             android.theme="@style/Theme.Serinityhub" />
 
-        <!-- Product Activity (FAB target) -->
-        <activity
-            android:name=".ProductActivity"
-            android:exported="true"
-            android:label="Add Product"
-            android:theme="@style/Theme.Serinityhub" />
-
         <!-- Forget Password Activity -->
         <activity
             android:name=".view.ForgetPasswordActivity"

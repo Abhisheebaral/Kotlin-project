@@ -29,7 +29,6 @@ fun ProfileScreen() {
 
     val userId = userViewModel.getCurrentUserId()
 
-    // Fetch user profile when screen loads
     LaunchedEffect(Unit) {
         if (userId != null) {
             userViewModel.fetchUserProfile(userId) { success, data, _ ->
@@ -47,7 +46,6 @@ fun ProfileScreen() {
     ) {
 
         if (showEditProfile && user != null) {
-            // Show EditProfileScreen only if user exists
             EditProfileScreen(
                 user = user!!,
                 onProfileSaved = { updatedUser ->
@@ -57,7 +55,6 @@ fun ProfileScreen() {
             )
         } else {
 
-            // Main profile card
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(20.dp),
@@ -102,30 +99,15 @@ fun ProfileScreen() {
                             showEditProfile = true
                         },
                         modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2EC4B6)),
                         shape = RoundedCornerShape(14.dp)
                     ) {
-                        Text("Edit Profile")
-                    }
-
-                    Spacer(modifier = Modifier.height(12.dp))
-
-                    // -------- DELETE PROFILE --------
-                    Button(
-                        onClick = {
-                            if (userId != null) {
-                                userViewModel.deleteProfile(userId) { _, _ ->
-                                    context.startActivity(
-                                        Intent(context, LoginActivity::class.java)
-                                    )
-                                    (context as Activity).finish()
-                                }
-                            }
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
-                        shape = RoundedCornerShape(14.dp)
-                    ) {
-                        Text("Delete Profile", color = Color.White)
+                        Text(
+                            text = "Edit Profile",
+                            color = Color.White,
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold
+                        )
                     }
 
                     Spacer(modifier = Modifier.height(12.dp))
@@ -150,6 +132,27 @@ fun ProfileScreen() {
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold
                         )
+                    }
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    // -------- DELETE PROFILE --------
+                    Button(
+                        onClick = {
+                            if (userId != null) {
+                                userViewModel.deleteProfile(userId) { _, _ ->
+                                    context.startActivity(
+                                        Intent(context, LoginActivity::class.java)
+                                    )
+                                    (context as Activity).finish()
+                                }
+                            }
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
+                        shape = RoundedCornerShape(14.dp)
+                    ) {
+                        Text("Delete Profile", color = Color.White)
                     }
                 }
             }
