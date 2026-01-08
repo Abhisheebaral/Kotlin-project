@@ -46,7 +46,7 @@ fun DashboardBody() {
     val navList = listOf(
         NavItem("Home", R.drawable.baseline_home_24),
         NavItem("Search", R.drawable.baseline_search_24),
-        NavItem("Notifications", R.drawable.baseline_notifications_24),
+        NavItem("Appointment", R.drawable.baseline_more_clock),
         NavItem("Profile", R.drawable.baseline_person_24)
     )
 
@@ -102,7 +102,7 @@ fun DashboardBody() {
             when (selectedIndex) {
                 0 -> HomeScreen()
                 1 -> SearchScreen()
-                2 -> NotificationScreen()
+                2 -> AppointmentScreen()
                 3 -> ProfileScreen()
             }
         }

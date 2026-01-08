@@ -44,7 +44,7 @@
             android:name=".view.DashboardActivity"
             android:exported="true"
             android:label="Dashboard"
-            android:theme="@style/Theme.Serinityhub" />
+            android.theme="@style/Theme.Serinityhub" />
 
         <!-- Product Activity (FAB target) -->
         <activity
@@ -52,6 +52,22 @@
             android:exported="true"
             android:label="Add Product"
             android:theme="@style/Theme.Serinityhub" />
+
+        <!-- Forget Password Activity -->
+        <activity
+            android:name=".view.ForgetPasswordActivity"
+            android:exported="true"
+            android:label="Forgot Password"
+            android:theme="@style/Theme.Serinityhub" />
+
+        <!-- Add Therapy Visit / Appointment Activity -->
+        <activity
+            android:name=".view.AddTherapyVisitActivity"
+            android:exported="true"
+            android:label="Add Appointment"
+            android:theme="@style/Theme.Serinityhub" />
+
+
 
     </application>
 

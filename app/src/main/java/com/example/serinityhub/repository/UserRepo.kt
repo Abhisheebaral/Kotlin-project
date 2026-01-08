@@ -5,6 +5,8 @@ import com.google.firebase.auth.FirebaseUser
 
 interface UserRepo {
 
+    // ---------- EXISTING (UNCHANGED) ----------
+
     fun register(
         email: String,
         password: String,
@@ -26,5 +28,22 @@ interface UserRepo {
     fun getCurrentUser(): FirebaseUser?
 
     fun logout(callback: (Boolean, String) -> Unit)
-}
 
+    // ---------- ADDED FOR PROFILE FEATURE ----------
+
+    fun getUserProfile(
+        userId: String,
+        callback: (Boolean, UserModel?, String) -> Unit
+    )
+
+    fun updateUserProfile(
+        userId: String,
+        updatedData: Map<String, Any?>,
+        callback: (Boolean, String) -> Unit
+    )
+
+    fun deleteUserAccount(
+        userId: String,
+        callback: (Boolean, String) -> Unit
+    )
+}

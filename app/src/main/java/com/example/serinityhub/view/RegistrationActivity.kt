@@ -164,7 +164,14 @@ fun RegistrationBody(viewModel: UserViewModel) {
                     viewModel.registerUser(email, password, selectedDate) { success, msg ->
                         isLoading = false
                         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+
                         if (success) {
+                            // ✅ SAVE DOB HERE
+                            val prefs = context.getSharedPreferences("user_prefs", ComponentActivity.MODE_PRIVATE)
+                            prefs.edit()
+                                .putString("dob", selectedDate)
+                                .apply()
+
                             context.startActivity(Intent(context, LoginActivity::class.java))
                         }
                     }
@@ -175,8 +182,10 @@ fun RegistrationBody(viewModel: UserViewModel) {
                 shape = RoundedCornerShape(16.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2EC4B6))
             ) {
-                if (isLoading) CircularProgressIndicator(color = Color.White, modifier = Modifier.size(24.dp), strokeWidth = 2.dp)
-                else Text("Register", color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                if (isLoading)
+                    CircularProgressIndicator(color = Color.White, modifier = Modifier.size(24.dp), strokeWidth = 2.dp)
+                else
+                    Text("Register", color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.Bold)
             }
 
             Spacer(modifier = Modifier.height(28.dp))

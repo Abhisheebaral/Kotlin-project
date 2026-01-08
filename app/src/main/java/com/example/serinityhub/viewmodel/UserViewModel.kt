@@ -14,7 +14,12 @@ class UserViewModel(private val repo: UserRepoImpl = UserRepoImpl()) : ViewModel
     }
 
     // ---------------- REGISTER ----------------
-    fun registerUser(email: String, password: String, dateOfBirth: String, callback: (Boolean, String) -> Unit) {
+    fun registerUser(
+        email: String,
+        password: String,
+        dateOfBirth: String,
+        callback: (Boolean, String) -> Unit
+    ) {
         repo.register(email, password) { success, msg, userId ->
             if (success) {
                 val user = UserModel(
@@ -30,5 +35,37 @@ class UserViewModel(private val repo: UserRepoImpl = UserRepoImpl()) : ViewModel
                 callback(false, msg)
             }
         }
+    }
+
+    // ---------------- PROFILE (ADDED) ----------------
+
+    fun getCurrentUserId(): String? {
+        return repo.getCurrentUser()?.uid
+    }
+
+    fun fetchUserProfile(
+        userId: String,
+        callback: (Boolean, UserModel?, String) -> Unit
+    ) {
+        repo.getUserProfile(userId, callback)
+    }
+
+    fun updateProfile(
+        userId: String,
+        updatedData: Map<String, Any?>,
+        callback: (Boolean, String) -> Unit
+    ) {
+        repo.updateUserProfile(userId, updatedData, callback)
+    }
+
+    fun deleteProfile(
+        userId: String,
+        callback: (Boolean, String) -> Unit
+    ) {
+        repo.deleteUserAccount(userId, callback)
+    }
+
+    fun logout(callback: (Boolean, String) -> Unit) {
+        repo.logout(callback)
     }
 }

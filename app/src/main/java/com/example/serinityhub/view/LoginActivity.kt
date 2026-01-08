@@ -9,11 +9,30 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,10 +47,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.serinityhub.R
 import com.example.serinityhub.repository.UserRepoImpl
-import com.example.serinityhub.viewmodel.UserViewModel
 import com.example.serinityhub.ui.theme.SerinityhubTheme
 import com.example.serinityhub.ui.theme.SkyBlueBg
 import com.example.serinityhub.ui.theme.WelcomeBackColor
+import com.example.serinityhub.viewmodel.UserViewModel
 
 class LoginActivity : ComponentActivity() {
 
@@ -53,6 +72,7 @@ class LoginActivity : ComponentActivity() {
 
 @Composable
 fun LoginBody(viewModel: UserViewModel) {
+
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var visibility by remember { mutableStateOf(false) }
@@ -141,6 +161,21 @@ fun LoginBody(viewModel: UserViewModel) {
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
             )
 
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = "Forgot Password?",
+                color = Color(0xFF2EC4B6),
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier
+                    .align(Alignment.End)
+                    .clickable {
+                        val intent = Intent(context, ForgetPasswordActivity::class.java)
+                        intent.putExtra("email", email.trim())
+                        context.startActivity(intent)
+                    }
+            )
+
             Spacer(modifier = Modifier.height(24.dp))
 
             Button(
@@ -149,12 +184,17 @@ fun LoginBody(viewModel: UserViewModel) {
                         Toast.makeText(context, "Please enter email and password", Toast.LENGTH_SHORT).show()
                         return@Button
                     }
+
                     isLoading = true
                     viewModel.login(email, password) { success, msg ->
                         isLoading = false
                         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+
                         if (success) {
-                            // ✅ Navigate to DashboardActivity
+                            // ✅ SAVE EMAIL HERE
+                            val prefs = context.getSharedPreferences("user_prefs", Activity.MODE_PRIVATE)
+                            prefs.edit().putString("email", email).apply()
+
                             context.startActivity(Intent(context, DashboardActivity::class.java))
                             activity?.finish()
                         }
@@ -166,17 +206,10 @@ fun LoginBody(viewModel: UserViewModel) {
                 shape = RoundedCornerShape(16.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2EC4B6))
             ) {
-                if (isLoading) CircularProgressIndicator(
-                    color = Color.White,
-                    modifier = Modifier.size(24.dp),
-                    strokeWidth = 2.dp
-                )
-                else Text(
-                    "Sign In",
-                    color = Color.White,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold
-                )
+                if (isLoading)
+                    CircularProgressIndicator(color = Color.White, modifier = Modifier.size(24.dp), strokeWidth = 2.dp)
+                else
+                    Text("Sign In", color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.Bold)
             }
 
             Spacer(modifier = Modifier.height(28.dp))
@@ -185,7 +218,7 @@ fun LoginBody(viewModel: UserViewModel) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
-                Text("Don't have an account? ")
+                Text("Don\'t have an account? ")
                 Text(
                     text = "Sign Up",
                     color = Color(0xFF2EC4B6),

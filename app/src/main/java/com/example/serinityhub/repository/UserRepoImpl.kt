@@ -10,6 +10,8 @@ class UserRepoImpl : UserRepo {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val database = FirebaseDatabase.getInstance().reference.child("users")
 
+    // ---------------- EXISTING FUNCTIONS (UNCHANGED) ----------------
+
     override fun register(
         email: String,
         password: String,
@@ -34,7 +36,11 @@ class UserRepoImpl : UserRepo {
             }
     }
 
-    override fun addUserToDatabase(userId: String, model: UserModel, callback: (Boolean, String) -> Unit) {
+    override fun addUserToDatabase(
+        userId: String,
+        model: UserModel,
+        callback: (Boolean, String) -> Unit
+    ) {
         database.child(userId).setValue(model)
             .addOnCompleteListener {
                 if (it.isSuccessful) callback(true, "User saved successfully")
@@ -51,5 +57,49 @@ class UserRepoImpl : UserRepo {
         } catch (e: Exception) {
             callback(false, e.message ?: "Logout failed")
         }
+    }
+
+    // ---------------- ADDED FOR PROFILE FEATURE ----------------
+
+    override fun getUserProfile(
+        userId: String,
+        callback: (Boolean, UserModel?, String) -> Unit
+    ) {
+        database.child(userId).get()
+            .addOnSuccessListener {
+                val user = it.getValue(UserModel::class.java)
+                callback(true, user, "User profile fetched")
+            }
+            .addOnFailureListener {
+                callback(false, null, it.message ?: "Failed to fetch profile")
+            }
+    }
+
+    override fun updateUserProfile(
+        userId: String,
+        updatedData: Map<String, Any?>,
+        callback: (Boolean, String) -> Unit
+    ) {
+        database.child(userId).updateChildren(updatedData)
+            .addOnSuccessListener {
+                callback(true, "Profile updated successfully")
+            }
+            .addOnFailureListener {
+                callback(false, it.message ?: "Profile update failed")
+            }
+    }
+
+    override fun deleteUserAccount(
+        userId: String,
+        callback: (Boolean, String) -> Unit
+    ) {
+        database.child(userId).removeValue()
+            .addOnSuccessListener {
+                auth.currentUser?.delete()
+                callback(true, "User account deleted")
+            }
+            .addOnFailureListener {
+                callback(false, it.message ?: "Account deletion failed")
+            }
     }
 }
